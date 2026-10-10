@@ -1,0 +1,1020 @@
+{
+ "schema": "amr.rosie-sim-kit.robot.v1",
+ "model": "rosie_1000",
+ "name": "Rosie 1000",
+ "manufacturer": "Advanced Metal Research",
+ "version": "2026-10-09",
+ "homepage": "https://advancedmetalresearch.com/rosie",
+ "kit": "https://advancedmetalresearch.com/assets/sim/1000/",
+ "units": {
+  "length": "m",
+  "angle": "rad",
+  "mass": "kg",
+  "inertia": "kg m^2",
+  "torque": "N m",
+  "velocity": "rad/s"
+ },
+ "conventions": {
+  "frames": "Every link frame is parallel to base_link at the zero pose and sits on its joint. Joint axes: J1 z, J2 y, J3 y, J4 x, J5 y, J6 z; positive = right-hand rule.",
+  "zero_pose": "All joints 0 = home: upper arm vertical, forearm along +x, tool flange facing down (-z).",
+  "tool0": "On the tool flange face (ISO 9409 mounting face), z out of the flange (down at home), x along base +x at home. Add your tool's TCP as a fixed offset from tool0.",
+  "base": "base_footprint is the floor / mounting face under J1; base_link is the robot base frame 175 mm above it.",
+  "same_as": "RosieOS robot_description rosie_1400_v3 (the RosieOS simulator's model): joint names J1..J6, link names link_1..link_6, axes, signs and the tool-down zero pose."
+ },
+ "frames": {
+  "base_footprint": {
+   "parent": null,
+   "description": "floor / mounting face, on the J1 axis"
+  },
+  "base_link": {
+   "parent": "base_footprint",
+   "xyz": [
+    0,
+    0,
+    0.175
+   ],
+   "rpy": [
+    0,
+    0,
+    0
+   ]
+  },
+  "tool0": {
+   "parent": "link_6",
+   "xyz": [
+    0,
+    0,
+    0
+   ],
+   "rpy": [
+    3.141592653589793,
+    0,
+    0
+   ]
+  }
+ },
+ "joints": [
+  {
+   "name": "J1",
+   "role": "base",
+   "type": "revolute",
+   "parent": "base_link",
+   "child": "link_1",
+   "origin_xyz": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "origin_rpy": [
+    0,
+    0,
+    0
+   ],
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "lower": -2.96706,
+   "upper": 2.96706,
+   "lower_deg": -170.0,
+   "upper_deg": 170.0,
+   "max_velocity": 5.8643,
+   "max_velocity_deg_s": 336,
+   "effort_peak": 157,
+   "effort_continuous": 67,
+   "drive_peak_torque_at_joint": 445.0,
+   "armature": 0.882,
+   "damping": 2.0,
+   "derived_max_acceleration": 9.3,
+   "derived_max_acceleration_deg_s2": 535
+  },
+  {
+   "name": "J2",
+   "role": "shoulder",
+   "type": "revolute",
+   "parent": "link_1",
+   "child": "link_2",
+   "origin_xyz": [
+    0.05,
+    0.0,
+    0.165
+   ],
+   "origin_rpy": [
+    0,
+    0,
+    0
+   ],
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "lower": -1.919862,
+   "upper": 1.919862,
+   "lower_deg": -110.0,
+   "upper_deg": 110.0,
+   "max_velocity": 4.1888,
+   "max_velocity_deg_s": 240,
+   "effort_peak": 568,
+   "effort_continuous": 223,
+   "drive_peak_torque_at_joint": 1113.0,
+   "armature": 6.78,
+   "damping": 4.0,
+   "derived_max_acceleration": 19.1,
+   "derived_max_acceleration_deg_s2": 1096
+  },
+  {
+   "name": "J3",
+   "role": "elbow",
+   "type": "revolute",
+   "parent": "link_2",
+   "child": "link_3",
+   "origin_xyz": [
+    0.0,
+    0.0,
+    0.47
+   ],
+   "origin_rpy": [
+    0,
+    0,
+    0
+   ],
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "lower": -2.617994,
+   "upper": 2.617994,
+   "lower_deg": -150.0,
+   "upper_deg": 150.0,
+   "max_velocity": 5.0265,
+   "max_velocity_deg_s": 288,
+   "effort_peak": 333,
+   "effort_continuous": 137,
+   "drive_peak_torque_at_joint": 836.0,
+   "armature": 2.86,
+   "damping": 2.0,
+   "derived_max_acceleration": 44.7,
+   "derived_max_acceleration_deg_s2": 2563
+  },
+  {
+   "name": "J4",
+   "role": "forearm roll",
+   "type": "revolute",
+   "parent": "link_3",
+   "child": "link_4",
+   "origin_xyz": [
+    0.081,
+    0.0,
+    0.065
+   ],
+   "origin_rpy": [
+    0,
+    0,
+    0
+   ],
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "lower": -3.141593,
+   "upper": 3.141593,
+   "lower_deg": -180.0,
+   "upper_deg": 180.0,
+   "max_velocity": 6.2832,
+   "max_velocity_deg_s": 360,
+   "effort_peak": 54,
+   "effort_continuous": 22,
+   "drive_peak_torque_at_joint": 112.0,
+   "armature": 0.087,
+   "damping": 0.5,
+   "derived_max_acceleration": 149.5,
+   "derived_max_acceleration_deg_s2": 8567
+  },
+  {
+   "name": "J5",
+   "role": "wrist bend",
+   "type": "revolute",
+   "parent": "link_4",
+   "child": "link_5",
+   "origin_xyz": [
+    0.399,
+    0.0,
+    0.0
+   ],
+   "origin_rpy": [
+    0,
+    0,
+    0
+   ],
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "lower": -2.181662,
+   "upper": 2.181662,
+   "lower_deg": -125.0,
+   "upper_deg": 125.0,
+   "max_velocity": 6.2832,
+   "max_velocity_deg_s": 360,
+   "effort_peak": 54,
+   "effort_continuous": 22,
+   "drive_peak_torque_at_joint": 112.0,
+   "armature": 0.857,
+   "damping": 0.5,
+   "derived_max_acceleration": 44.8,
+   "derived_max_acceleration_deg_s2": 2569
+  },
+  {
+   "name": "J6",
+   "role": "flange roll",
+   "type": "revolute",
+   "parent": "link_5",
+   "child": "link_6",
+   "origin_xyz": [
+    0.0,
+    0.0,
+    -0.07725
+   ],
+   "origin_rpy": [
+    0,
+    0,
+    0
+   ],
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "lower": -3.141593,
+   "upper": 3.141593,
+   "lower_deg": -180.0,
+   "upper_deg": 180.0,
+   "max_velocity": 6.2832,
+   "max_velocity_deg_s": 360,
+   "effort_peak": 28,
+   "effort_continuous": 8,
+   "drive_peak_torque_at_joint": 112.0,
+   "armature": 0.054,
+   "damping": 0.5,
+   "derived_max_acceleration": 329.7,
+   "derived_max_acceleration_deg_s2": 18890
+  }
+ ],
+ "links": [
+  {
+   "name": "base_link",
+   "role": "base",
+   "mass": 7.775,
+   "com": [
+    0.0002,
+    -1e-05,
+    -0.0815
+   ],
+   "inertia": {
+    "ixx": 0.048026,
+    "iyy": 0.047835,
+    "izz": 0.041679,
+    "ixy": -3e-06,
+    "ixz": 4e-05,
+    "iyz": -9e-06
+   },
+   "visual": "meshes/visual/base_link.stl",
+   "collision": [
+    "meshes/collision/base_link_c00.stl",
+    "meshes/collision/base_link_c01.stl",
+    "meshes/collision/base_link_c02.stl",
+    "meshes/collision/base_link_c03.stl",
+    "meshes/collision/base_link_c04.stl",
+    "meshes/collision/base_link_c05.stl",
+    "meshes/collision/base_link_c06.stl",
+    "meshes/collision/base_link_c07.stl",
+    "meshes/collision/base_link_c08.stl",
+    "meshes/collision/base_link_c09.stl"
+   ],
+   "visual_triangles": 2856,
+   "collision_hulls": 10
+  },
+  {
+   "name": "link_1",
+   "role": "turret (J1)",
+   "mass": 11.9522,
+   "com": [
+    0.0379,
+    0.00207,
+    0.12031
+   ],
+   "inertia": {
+    "ixx": 0.098707,
+    "iyy": 0.092492,
+    "izz": 0.060327,
+    "ixy": -0.000557,
+    "ixz": -0.014692,
+    "iyz": -0.00138
+   },
+   "visual": "meshes/visual/link_1.stl",
+   "collision": [
+    "meshes/collision/link_1_c00.stl",
+    "meshes/collision/link_1_c01.stl",
+    "meshes/collision/link_1_c02.stl",
+    "meshes/collision/link_1_c03.stl",
+    "meshes/collision/link_1_c04.stl",
+    "meshes/collision/link_1_c05.stl",
+    "meshes/collision/link_1_c06.stl",
+    "meshes/collision/link_1_c07.stl",
+    "meshes/collision/link_1_c08.stl",
+    "meshes/collision/link_1_c09.stl"
+   ],
+   "visual_triangles": 2898,
+   "collision_hulls": 10
+  },
+  {
+   "name": "link_2",
+   "role": "upper arm (J2)",
+   "mass": 5.8735,
+   "com": [
+    0.0,
+    -0.09159,
+    0.19738
+   ],
+   "inertia": {
+    "ixx": 0.259579,
+    "iyy": 0.264619,
+    "izz": 0.006976,
+    "ixy": -0.0,
+    "ixz": -0.0,
+    "iyz": 0.001442
+   },
+   "visual": "meshes/visual/link_2.stl",
+   "collision": [
+    "meshes/collision/link_2_c00.stl"
+   ],
+   "visual_triangles": 876,
+   "collision_hulls": 1
+  },
+  {
+   "name": "link_3",
+   "role": "elbow (J3)",
+   "mass": 6.0216,
+   "com": [
+    0.00664,
+    -0.01577,
+    0.01191
+   ],
+   "inertia": {
+    "ixx": 0.020413,
+    "iyy": 0.016658,
+    "izz": 0.018205,
+    "ixy": -0.000573,
+    "ixz": -0.002134,
+    "iyz": -0.000999
+   },
+   "visual": "meshes/visual/link_3.stl",
+   "collision": [
+    "meshes/collision/link_3_c00.stl",
+    "meshes/collision/link_3_c01.stl",
+    "meshes/collision/link_3_c02.stl",
+    "meshes/collision/link_3_c03.stl",
+    "meshes/collision/link_3_c04.stl",
+    "meshes/collision/link_3_c05.stl",
+    "meshes/collision/link_3_c06.stl",
+    "meshes/collision/link_3_c07.stl",
+    "meshes/collision/link_3_c08.stl",
+    "meshes/collision/link_3_c09.stl"
+   ],
+   "visual_triangles": 4492,
+   "collision_hulls": 10
+  },
+  {
+   "name": "link_4",
+   "role": "forearm (J4)",
+   "mass": 5.3544,
+   "com": [
+    0.22594,
+    -0.02691,
+    -0.00169
+   ],
+   "inertia": {
+    "ixx": 0.011498,
+    "iyy": 0.092199,
+    "izz": 0.095824,
+    "ixy": 0.016226,
+    "ixz": 0.000524,
+    "iyz": 0.000101
+   },
+   "visual": "meshes/visual/link_4.stl",
+   "collision": [
+    "meshes/collision/link_4_c00.stl",
+    "meshes/collision/link_4_c01.stl",
+    "meshes/collision/link_4_c02.stl",
+    "meshes/collision/link_4_c03.stl",
+    "meshes/collision/link_4_c04.stl",
+    "meshes/collision/link_4_c05.stl"
+   ],
+   "visual_triangles": 2476,
+   "collision_hulls": 6
+  },
+  {
+   "name": "link_5",
+   "role": "wrist (J5)",
+   "mass": 1.3356,
+   "com": [
+    1e-05,
+    -0.01272,
+    -0.01648
+   ],
+   "inertia": {
+    "ixx": 0.001668,
+    "iyy": 0.001536,
+    "izz": 0.00097,
+    "ixy": 5e-06,
+    "ixz": -2e-06,
+    "iyz": 0.00024
+   },
+   "visual": "meshes/visual/link_5.stl",
+   "collision": [
+    "meshes/collision/link_5_c00.stl",
+    "meshes/collision/link_5_c01.stl",
+    "meshes/collision/link_5_c02.stl",
+    "meshes/collision/link_5_c03.stl",
+    "meshes/collision/link_5_c04.stl",
+    "meshes/collision/link_5_c05.stl",
+    "meshes/collision/link_5_c06.stl",
+    "meshes/collision/link_5_c07.stl",
+    "meshes/collision/link_5_c08.stl",
+    "meshes/collision/link_5_c09.stl"
+   ],
+   "visual_triangles": 1412,
+   "collision_hulls": 10
+  },
+  {
+   "name": "link_6",
+   "role": "tool flange (J6)",
+   "mass": 0.2413,
+   "com": [
+    -6e-05,
+    -0.0,
+    0.01074
+   ],
+   "inertia": {
+    "ixx": 5.1e-05,
+    "iyy": 5e-05,
+    "izz": 9.4e-05,
+    "ixy": -0.0,
+    "ixz": -0.0,
+    "iyz": 0.0
+   },
+   "visual": "meshes/visual/link_6.stl",
+   "collision": [
+    "meshes/collision/link_6_c00.stl",
+    "meshes/collision/link_6_c01.stl",
+    "meshes/collision/link_6_c02.stl",
+    "meshes/collision/link_6_c03.stl",
+    "meshes/collision/link_6_c04.stl",
+    "meshes/collision/link_6_c05.stl",
+    "meshes/collision/link_6_c06.stl",
+    "meshes/collision/link_6_c07.stl",
+    "meshes/collision/link_6_c08.stl",
+    "meshes/collision/link_6_c09.stl"
+   ],
+   "visual_triangles": 3972,
+   "collision_hulls": 10
+  }
+ ],
+ "home": [
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0
+ ],
+ "poses": {
+  "home": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0
+  ],
+  "work": [
+   0.523599,
+   0.785398,
+   -0.174533,
+   0.0,
+   -0.610865,
+   0.0
+  ],
+  "stretched": [
+   0.0,
+   1.570796,
+   -1.570796,
+   0.0,
+   0.0,
+   0.0
+  ]
+ },
+ "reach": {
+  "wrist_centre_published_m": 1.0,
+  "tool_flange_published_m": 1.077,
+  "wrist_centre_geometric_m": 1.0,
+  "definition": "horizontal distance from the J1 axis to the wrist centre (J5) at J2 = 90 deg, J3 = -90 deg"
+ },
+ "payload": {
+  "rated_kg": 7.4,
+  "peak_kg": 29.7,
+  "rule": "CoM 100 mm along and 50 mm off the tool axis; rated = gravity within 80 % of every joint's continuous output torque over the workspace, peak = within peak torque"
+ },
+ "repeatability_mm": 0.04,
+ "mass": {
+  "published_kg": 38.6,
+  "model_kg": 38.55,
+  "moving_kg": 30.78
+ },
+ "height_at_home_m": 0.934,
+ "fk_reference": [
+  {
+   "pose": "home",
+   "q": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "wrist_centre": [
+    0.53,
+    0.0,
+    0.7
+   ],
+   "tool0_xyz": [
+    0.53,
+    0.0,
+    0.62275
+   ],
+   "tool0_rotation": [
+    [
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -1.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     -1.0
+    ]
+   ]
+  },
+  {
+   "pose": "work",
+   "q": [
+    0.523599,
+    0.785398,
+    -0.174533,
+    0.0,
+    -0.610865,
+    0.0
+   ],
+   "wrist_centre": [
+    0.703919,
+    0.406408,
+    0.275269
+   ],
+   "tool0_xyz": [
+    0.703919,
+    0.406408,
+    0.198019
+   ],
+   "tool0_rotation": [
+    [
+     0.866025,
+     0.5,
+     -0.0
+    ],
+    [
+     0.5,
+     -0.866025,
+     -0.0
+    ],
+    [
+     -0.0,
+     0.0,
+     -1.0
+    ]
+   ]
+  },
+  {
+   "pose": "stretched",
+   "q": [
+    0.0,
+    1.570796,
+    -1.570796,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "wrist_centre": [
+    1.0,
+    0.0,
+    0.23
+   ],
+   "tool0_xyz": [
+    1.0,
+    0.0,
+    0.15275
+   ],
+   "tool0_rotation": [
+    [
+     1.0,
+     0.0,
+     -0.0
+    ],
+    [
+     0.0,
+     -1.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     -1.0
+    ]
+   ]
+  }
+ ],
+ "ik_reference": {
+  "file": "ik_cases.json",
+  "cases": 12,
+  "all_solutions": 25,
+  "solver": "RosieOS Cartesian resolver: robot-v4-cartesiand --resolve-only, operation \"move\"",
+  "source": "RosieOS 6d1fd9e4 motion-server/v1/src/robot_v4_cartesian_cli.hpp, motion-server/v1/src/cartesian_resolver.hpp, motion-server/v1/src/robot_v4_cartesian_nats_protocol.hpp",
+  "branches": {
+   "shoulder": "front: J1 points the arm plane toward the wrist centre (cos(J1 - atan2(y_w, x_w)) > 0, wrist centre = J5 origin in base_link); back: the arm reaches over the J1 axis (J1 turned 180 deg from that).",
+   "elbow": "up: sin(J3 - J3_straight) > 0, where J3_straight = -atan2(Lf, a3) is the J3 angle at which the forearm lines up with the upper arm (Lf = J4 origin x + J5 origin x, the J3 to wrist centre distance along the forearm; a3 = J4 origin z, the elbow offset; from joints[].origin_xyz); down: the other side.",
+   "wrist": "nonflip: cos(J5) > 0; flip: cos(J5) < 0 (J4 + 180 deg, J5 -> 180 deg - J5, J6 + 180 deg). The wrist is singular at J5 = +/-90 deg, where the J4 and J6 axes line up.",
+   "turns": "Every solution inside the joint limits is listed, including angles 360 deg apart where a joint's range allows both."
+  }
+ },
+ "motion": {
+  "profile": {
+   "rosieos_programs": "RosieOS's planner outputs each program as joint-space cubic splines: free-space moves as clamped cubic B-splines (acceleration continuous), weld moves as cubic Hermite curves through the weld path. It optimises them inside each joint's velocity and acceleration settings with a jerk bound of 2 x the acceleration setting / 0.2 s. The real-time core plays them as planned, without further smoothing.",
+   "rosieos_jog_and_moves": "Jog, stop ramps, Move-to and Cartesian steps are jerk-limited (double-S, every joint on one shared progress) where the cell sets a machine jog jerk, and acceleration-limited otherwise (the local simulator). A single-joint move by an angle is a trapezoid, or a triangle when it is too short to reach speed.",
+   "benchmark": "Trapezoid: constant acceleration, cruise, constant deceleration (unlimited jerk); see benchmarks."
+  },
+  "rosieos_settings": [],
+  "rosieos_settings_note": "RosieOS's robot descriptions cover the Rosie 1400; there are no RosieOS acceleration or jerk settings for this model. Use derived_max_acceleration, or the benchmark accelerations.",
+  "jerk": "No RosieOS robot description states a per-joint jerk limit. The planner bounds jerk at 2 x the acceleration setting / 0.2 s as a smoothness backstop (planner_jerk_bound_rad_s3, for the settings above); jog, stop ramps, Move-to and Cartesian steps are jerk-limited by the cell's machine-level jog jerk where one is set.",
+  "derived_max_acceleration": {
+   "method": "Peak-torque acceleration of one joint from standstill with the others held, from this file's own data: (effort_peak - |gravity torque|) / (armature + inertia about the joint axis of every link it moves, plus the payload), the weaker direction against gravity. Conservative: effort_peak is the torque the gearbox passes to the arm, while the motor accelerates its own rotor (most of armature) ahead of the gearbox with its own torque, up to drive_peak_torque_at_joint (the MuJoCo force limit). Torque falling with speed and friction are not included.",
+   "payload": {
+    "com_link6_m": [
+     0.05,
+     0.0,
+     -0.1
+    ],
+    "cube_m": 0.1,
+    "note": "payload as in benchmarks (CoM 100 mm out along the tool axis, 50 mm off it)"
+   },
+   "stretched_rated": {
+    "pose": "stretched",
+    "payload_kg": 7.4,
+    "rad_s2": [
+     9.3,
+     19.1,
+     44.7,
+     149.5,
+     44.8,
+     329.7
+    ],
+    "note": "joints[].derived_max_acceleration"
+   },
+   "work_1kg": {
+    "pose": "work",
+    "payload_kg": 1.0,
+    "rad_s2": [
+     23.9,
+     38.4,
+     71.5,
+     438.1,
+     59.7,
+     480.6
+    ]
+   }
+  }
+ },
+ "benchmarks": {
+  "name": "25 / 305 / 25 mm pick-and-place cycle",
+  "page": "https://advancedmetalresearch.com/rosie#specs",
+  "published": {
+   "cycle_1kg_s": 0.665,
+   "cycle_rated_s": 0.801
+  },
+  "model": {
+   "cycle_1kg_s": 0.665298,
+   "cycle_rated_s": 0.801104,
+   "rated_payload_kg": 7.367
+  },
+  "path": {
+   "description": "The tool points straight down (tool0 z = -z of base_link) and keeps its heading. Pick point A and place point B are 305 mm apart along y, centred 350 mm from the J1 axis on +x; the TCP lifts 25 mm at each. Sequence: A_low -> A_high -> B_high -> B_low -> B_high -> A_high -> A_low.",
+   "tcp_points_base_link_m": {
+    "A_low": [
+     0.35,
+     -0.1525,
+     0.05
+    ],
+    "A_high": [
+     0.35,
+     -0.1525,
+     0.075
+    ],
+    "B_high": [
+     0.35,
+     0.1525,
+     0.075
+    ],
+    "B_low": [
+     0.35,
+     0.1525,
+     0.05
+    ]
+   },
+   "tcp_low_above_floor_m": 0.225
+  },
+  "tcp": {
+   "frame": "tool0",
+   "xyz_m": [
+    0.0,
+    0.0,
+    0.05
+   ],
+   "note": "on the tool axis, 50 mm out from the flange face"
+  },
+  "payload": {
+   "includes_tool": true,
+   "description": "Everything on the flange (gripper and part) as one body: 1 kg for the 1 kg cycle, the rated payload for the rated cycle. No other tool mass.",
+   "com_tool0_m": [
+    0.05,
+    0.0,
+    0.1
+   ],
+   "com_link6_m": [
+    0.05,
+    0.0,
+    -0.1
+   ],
+   "inertia": "uniform 100 mm cube about its CoM: I = m s^2 / 6 = 0.001667 kg m^2 per kg on each axis",
+   "standard_tool": "AMR defines no standard gripper or tool; this payload is the benchmark's definition."
+  },
+  "poses": {
+   "A_low": {
+    "q": [
+     -0.41091063,
+     0.277467563,
+     0.995396839,
+     0.0,
+     -1.272864402,
+     0.41091063
+    ],
+    "tcp_xyz": [
+     0.35,
+     -0.1525,
+     0.05
+    ],
+    "branch": {
+     "shoulder": "front",
+     "elbow": "up",
+     "wrist": "nonflip"
+    }
+   },
+   "A_high": {
+    "q": [
+     -0.41091063,
+     0.204905248,
+     0.991237289,
+     0.0,
+     -1.196142537,
+     0.41091063
+    ],
+    "tcp_xyz": [
+     0.35,
+     -0.1525,
+     0.075
+    ],
+    "branch": {
+     "shoulder": "front",
+     "elbow": "up",
+     "wrist": "nonflip"
+    }
+   },
+   "B_high": {
+    "q": [
+     0.41091063,
+     0.204905248,
+     0.991237289,
+     0.0,
+     -1.196142537,
+     -0.41091063
+    ],
+    "tcp_xyz": [
+     0.35,
+     0.1525,
+     0.075
+    ],
+    "branch": {
+     "shoulder": "front",
+     "elbow": "up",
+     "wrist": "nonflip"
+    }
+   },
+   "B_low": {
+    "q": [
+     0.41091063,
+     0.277467563,
+     0.995396839,
+     0.0,
+     -1.272864402,
+     -0.41091063
+    ],
+    "tcp_xyz": [
+     0.35,
+     0.1525,
+     0.05
+    ],
+    "branch": {
+     "shoulder": "front",
+     "elbow": "up",
+     "wrist": "nonflip"
+    }
+   }
+  },
+  "moves": "Six joint-space point-to-point moves, each from rest to rest. All joints start and stop together.",
+  "profile": "Per segment, each joint follows a trapezoid at its own benchmark acceleration (a triangle if it cannot reach speed). The segment takes the slowest joint's time at max_velocity; the other joints lower their cruise speed to finish with it.",
+  "velocity": "joints[].max_velocity",
+  "acceleration": {
+   "rule": "80 % of each joint's peak-torque acceleration with the payload, the lowest over the four cycle poses, from the drive model (motor peak torque through the gearbox ratio and efficiency, less drag, accelerating the motor's own inertia and the arm; capped by the gearbox start/stop torque on the arm).",
+   "one_kg_rad_s2": [
+    84.4791,
+    76.625,
+    128.8424,
+    null,
+    93.9966,
+    1449.5259
+   ],
+   "rated_rad_s2": [
+    47.1452,
+    64.8594,
+    55.8045,
+    null,
+    66.3446,
+    726.3702
+   ],
+   "peak_torque_one_kg_rad_s2": [
+    105.5989,
+    95.7813,
+    161.053,
+    null,
+    117.4958,
+    1811.9074
+   ],
+   "peak_torque_rated_rad_s2": [
+    58.9315,
+    81.0743,
+    69.7556,
+    null,
+    82.9308,
+    907.9628
+   ],
+   "note": "null for J4, which does not move in this cycle."
+  },
+  "segments_1kg_s": [
+   0.061546,
+   0.209557,
+   0.061546,
+   0.061546,
+   0.209557,
+   0.061546
+  ],
+  "segments_rated_s": [
+   0.068012,
+   0.264528,
+   0.068012,
+   0.068012,
+   0.264528,
+   0.068012
+  ],
+  "trajectory": {
+   "csv": "benchmark/rosie_1000_cycle_1kg.csv",
+   "json": "benchmark/rosie_1000_cycle_1kg.json",
+   "payload_kg": 1.0,
+   "dt_s": 0.001,
+   "duration_s": 0.665298,
+   "columns": [
+    "t_s",
+    "q1_rad",
+    "q2_rad",
+    "q3_rad",
+    "q4_rad",
+    "q5_rad",
+    "q6_rad",
+    "qd1_rad_s",
+    "qd2_rad_s",
+    "qd3_rad_s",
+    "qd4_rad_s",
+    "qd5_rad_s",
+    "qd6_rad_s",
+    "qdd1_rad_s2",
+    "qdd2_rad_s2",
+    "qdd3_rad_s2",
+    "qdd4_rad_s2",
+    "qdd5_rad_s2",
+    "qdd6_rad_s2",
+    "tcp_x_m",
+    "tcp_y_m",
+    "tcp_z_m"
+   ]
+  },
+  "notes": [
+   "The cycle has no corner blending, dwell or gripper time, so it is slower than a blended cycle over the same points.",
+   "The rated-payload time is computed at 7.37 kg, the unrounded rated payload (published 7.4 kg).",
+   "J4 does not move: every cycle pose has J4 = 0 and J6 = -J1 (the tool keeps its heading along base x)."
+  ],
+  "kit_model_check": {
+   "method": "MuJoCo inverse dynamics of this kit's MJCF with the 1 kg benchmark payload added to link_6, over every trajectory sample (armature and damping included).",
+   "max_torque_nm": [
+    204.2,
+    836.1,
+    611.1,
+    13.8,
+    82.1,
+    93.1
+   ],
+   "fraction_of_drive_peak": [
+    0.46,
+    0.75,
+    0.73,
+    0.12,
+    0.73,
+    0.83
+   ],
+   "note": "fraction_of_drive_peak = the most torque the trajectory needs / drive_peak_torque_at_joint (the MJCF force limit). At 1 or below, the kit's MuJoCo model can follow the benchmark trajectory with its position actuators."
+  }
+ },
+ "simulation": {
+  "armature": "reflected motor rotor + gearbox input inertia at the joint (kg m^2)",
+  "damping": "nominal viscous damping (N m s/rad), not identified on hardware",
+  "effort": "effort_peak = peak output torque the gearbox passes to the arm (URDF effort); effort_continuous = rated continuous output torque",
+  "drive_peak_torque_at_joint": "N m at the joint: the torque the drive can deliver, motor peak torque x total gear ratio, on the motor side, so it covers accelerating the motor's own rotor (armature) as well as the arm. MuJoCo forcerange. No gearbox efficiency, drag or speed derating applied.",
+  "max_velocity": "maximum joint speed"
+ },
+ "geometry": {
+  "method": "Per link, every part except fasteners, pulleys and belts fused into one solid. The structural parts (housings, arms, brackets, base, flange) keep their original CAD surfaces (the same planes, cylinders, cones, tori and B-splines), so faces, edges and hole axes can be picked and dimensioned. Motors and gearboxes are plain envelopes of the same outer size and position: stepped boxes and cylinders, without connectors or detail. Bolt holes, counterbores, openings into the inside and gaps around the motors are capped flush with the surfaces around them, open channels get a cover that follows their rim, and everything inside is solid (no internal parts or voids). The base mounting face with its holes and bore, and the tool flange, are unchanged. Visual meshes are this solid, tessellated; collision meshes are convex decompositions of it.",
+  "fidelity": {
+   "exterior_kept_exact_pct": 37.44,
+   "exterior_capped_pct": 62.56,
+   "exterior_lost_pct": 0.0,
+   "surface_on_original_pct": 26.71,
+   "surface_on_envelope_pct": 67.07,
+   "bounding_box_max_deviation_mm": 0.16,
+   "step_faces": 417,
+   "step_face_types": {
+    "cylinder": 143,
+    "plane": 274
+   }
+  }
+ },
+ "notes": [
+  "J3 self-contact zone when folding down: from +80 deg (J2 = 0), +75 deg at J2 = 60 deg, +55 deg at J2 = 90 deg (software zone, not a joint limit)."
+ ],
+ "files": {
+  "urdf": "urdf/rosie_1000.urdf",
+  "mjcf": "mjcf/rosie_1000.xml",
+  "srdf": "srdf/rosie_1000.srdf",
+  "step": "step/rosie_1000.step",
+  "glb": "glb/rosie_1000.glb",
+  "ik_cases": "ik_cases.json",
+  "benchmark_trajectory": [
+   "benchmark/rosie_1000_cycle_1kg.csv",
+   "benchmark/rosie_1000_cycle_1kg.json"
+  ],
+  "readme": "README.md",
+  "license": "LICENSE.txt",
+  "ros2_launch": "launch/display.launch.py",
+  "examples": [
+   "examples/pybullet_demo.py",
+   "examples/mujoco_demo.py",
+   "examples/fk_ik.py"
+  ]
+ },
+ "license": "Free to use for simulation and integration. See LICENSE.txt."
+}

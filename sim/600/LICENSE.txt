@@ -1,0 +1,11 @@
+Rosie 600 simulation and CAD kit
+Copyright 2026 Advanced Metal Research. https://advancedmetalresearch.com
+
+Free to use for simulation and integration. You may use, copy, modify and share
+these files, including in commercial work, to simulate, program, plan and
+integrate Rosie robots and the cells they work in.
+
+The geometry is the robot's real outside surfaces: each link is one solid,
+filled inside, with the structural parts' own CAD faces and the motors and
+gearboxes as plain envelopes of the same size.
+The files are provided as is, without warranty of any kind.

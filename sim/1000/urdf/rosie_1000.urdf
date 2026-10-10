@@ -1,0 +1,406 @@
+<?xml version="1.0"?>
+<!-- Rosie 1000 by Advanced Metal Research, sim kit 2026-10-09: https://advancedmetalresearch.com/assets/sim/1000/
+     Units m, kg, rad. Zero pose = home (tool flange facing down). tool0 = flange face, z out of the flange.
+     Mesh paths are relative to this file; launch/display.launch.py rewrites them to package:// for ROS 2.
+     Visual and collision meshes are the robot's real outside surfaces: one filled solid per link, structural parts' own CAD faces,
+     motors and gearboxes as plain envelopes of the same size. Inertials are the robot's real mass properties. -->
+<robot name="rosie_1000">
+  <material name="rosie_grey"><color rgba="0.82 0.83 0.85 1"/></material>
+  <material name="rosie_dark"><color rgba="0.30 0.31 0.33 1"/></material>
+  <link name="base_footprint"/>
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_footprint"/><child link="base_link"/>
+    <origin xyz="0 0 0.175" rpy="0 0 0"/>
+  </joint>
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.0002 -0.00001 -0.0815" rpy="0 0 0"/>
+      <mass value="7.775"/>
+      <inertia ixx="0.048026" ixy="-0.000003" ixz="0.00004" iyy="0.047835" iyz="-0.000009" izz="0.041679"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/visual/base_link.stl"/></geometry>
+      <material name="rosie_dark"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/base_link_c00.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/base_link_c01.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/base_link_c02.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/base_link_c03.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/base_link_c04.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/base_link_c05.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/base_link_c06.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/base_link_c07.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/base_link_c08.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/base_link_c09.stl"/></geometry>
+    </collision>
+  </link>
+  <joint name="J1" type="revolute">
+    <parent link="base_link"/><child link="link_1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.96706" upper="2.96706" effort="157" velocity="5.8643"/>
+    <dynamics damping="2" friction="0"/>
+  </joint>
+  <link name="link_1">
+    <inertial>
+      <origin xyz="0.0379 0.00207 0.12031" rpy="0 0 0"/>
+      <mass value="11.9522"/>
+      <inertia ixx="0.098707" ixy="-0.000557" ixz="-0.014692" iyy="0.092492" iyz="-0.00138" izz="0.060327"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/visual/link_1.stl"/></geometry>
+      <material name="rosie_grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_1_c00.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_1_c01.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_1_c02.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_1_c03.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_1_c04.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_1_c05.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_1_c06.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_1_c07.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_1_c08.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_1_c09.stl"/></geometry>
+    </collision>
+  </link>
+  <joint name="J2" type="revolute">
+    <parent link="link_1"/><child link="link_2"/>
+    <origin xyz="0.05 0 0.165" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.919862" upper="1.919862" effort="568" velocity="4.1888"/>
+    <dynamics damping="4" friction="0"/>
+  </joint>
+  <link name="link_2">
+    <inertial>
+      <origin xyz="0 -0.09159 0.19738" rpy="0 0 0"/>
+      <mass value="5.8735"/>
+      <inertia ixx="0.259579" ixy="0" ixz="0" iyy="0.264619" iyz="0.001442" izz="0.006976"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/visual/link_2.stl"/></geometry>
+      <material name="rosie_grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_2_c00.stl"/></geometry>
+    </collision>
+  </link>
+  <joint name="J3" type="revolute">
+    <parent link="link_2"/><child link="link_3"/>
+    <origin xyz="0 0 0.47" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.617994" upper="2.617994" effort="333" velocity="5.0265"/>
+    <dynamics damping="2" friction="0"/>
+  </joint>
+  <link name="link_3">
+    <inertial>
+      <origin xyz="0.00664 -0.01577 0.01191" rpy="0 0 0"/>
+      <mass value="6.0216"/>
+      <inertia ixx="0.020413" ixy="-0.000573" ixz="-0.002134" iyy="0.016658" iyz="-0.000999" izz="0.018205"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/visual/link_3.stl"/></geometry>
+      <material name="rosie_grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_3_c00.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_3_c01.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_3_c02.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_3_c03.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_3_c04.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_3_c05.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_3_c06.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_3_c07.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_3_c08.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_3_c09.stl"/></geometry>
+    </collision>
+  </link>
+  <joint name="J4" type="revolute">
+    <parent link="link_3"/><child link="link_4"/>
+    <origin xyz="0.081 0 0.065" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-3.141593" upper="3.141593" effort="54" velocity="6.2832"/>
+    <dynamics damping="0.5" friction="0"/>
+  </joint>
+  <link name="link_4">
+    <inertial>
+      <origin xyz="0.22594 -0.02691 -0.00169" rpy="0 0 0"/>
+      <mass value="5.3544"/>
+      <inertia ixx="0.011498" ixy="0.016226" ixz="0.000524" iyy="0.092199" iyz="0.000101" izz="0.095824"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/visual/link_4.stl"/></geometry>
+      <material name="rosie_grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_4_c00.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_4_c01.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_4_c02.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_4_c03.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_4_c04.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_4_c05.stl"/></geometry>
+    </collision>
+  </link>
+  <joint name="J5" type="revolute">
+    <parent link="link_4"/><child link="link_5"/>
+    <origin xyz="0.399 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.181662" upper="2.181662" effort="54" velocity="6.2832"/>
+    <dynamics damping="0.5" friction="0"/>
+  </joint>
+  <link name="link_5">
+    <inertial>
+      <origin xyz="0.00001 -0.01272 -0.01648" rpy="0 0 0"/>
+      <mass value="1.3356"/>
+      <inertia ixx="0.001668" ixy="0.000005" ixz="-0.000002" iyy="0.001536" iyz="0.00024" izz="0.00097"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/visual/link_5.stl"/></geometry>
+      <material name="rosie_grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_5_c00.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_5_c01.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_5_c02.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_5_c03.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_5_c04.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_5_c05.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_5_c06.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_5_c07.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_5_c08.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_5_c09.stl"/></geometry>
+    </collision>
+  </link>
+  <joint name="J6" type="revolute">
+    <parent link="link_5"/><child link="link_6"/>
+    <origin xyz="0 0 -0.07725" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.141593" upper="3.141593" effort="28" velocity="6.2832"/>
+    <dynamics damping="0.5" friction="0"/>
+  </joint>
+  <link name="link_6">
+    <inertial>
+      <origin xyz="-0.00006 0 0.01074" rpy="0 0 0"/>
+      <mass value="0.2413"/>
+      <inertia ixx="0.000051" ixy="0" ixz="0" iyy="0.00005" iyz="0" izz="0.000094"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/visual/link_6.stl"/></geometry>
+      <material name="rosie_grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_6_c00.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_6_c01.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_6_c02.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_6_c03.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_6_c04.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_6_c05.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_6_c06.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_6_c07.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_6_c08.stl"/></geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="../meshes/collision/link_6_c09.stl"/></geometry>
+    </collision>
+  </link>
+  <joint name="tool0_joint" type="fixed">
+    <parent link="link_6"/><child link="tool0"/>
+    <origin xyz="0 0 0" rpy="3.141592653589793 0 0"/>
+  </joint>
+  <link name="tool0">
+    <inertial><origin xyz="0 0 0" rpy="0 0 0"/><mass value="1e-06"/><inertia ixx="1e-12" ixy="0" ixz="0" iyy="1e-12" iyz="0" izz="1e-12"/></inertial>
+  </link>
+  <transmission name="J1_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="J1"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></joint>
+    <actuator name="J1_motor"><mechanicalReduction>1</mechanicalReduction></actuator>
+  </transmission>
+  <transmission name="J2_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="J2"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></joint>
+    <actuator name="J2_motor"><mechanicalReduction>1</mechanicalReduction></actuator>
+  </transmission>
+  <transmission name="J3_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="J3"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></joint>
+    <actuator name="J3_motor"><mechanicalReduction>1</mechanicalReduction></actuator>
+  </transmission>
+  <transmission name="J4_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="J4"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></joint>
+    <actuator name="J4_motor"><mechanicalReduction>1</mechanicalReduction></actuator>
+  </transmission>
+  <transmission name="J5_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="J5"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></joint>
+    <actuator name="J5_motor"><mechanicalReduction>1</mechanicalReduction></actuator>
+  </transmission>
+  <transmission name="J6_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="J6"><hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface></joint>
+    <actuator name="J6_motor"><mechanicalReduction>1</mechanicalReduction></actuator>
+  </transmission>
+</robot>

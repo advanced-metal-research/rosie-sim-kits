@@ -1,0 +1,45 @@
+# Rosie robot simulation and CAD kits (mirror)
+
+> Mirror of https://advancedmetalresearch.com/assets/sim/ and /assets/cad/: URDF, MuJoCo, SRDF, STEP, GLB, meshes and robot.json of the Rosie 600, 1000 and 1400. Canonical: https://advancedmetalresearch.com/assets/sim/index.json. Agent guide: https://advancedmetalresearch.com/agents.md.
+
+## Files
+
+- [Index (JSON)](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/index.json): every kit and every file URL on this mirror
+- [Rosie 600 kit (ZIP)](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/rosie-600-sim-kit.zip)
+- [Rosie 600 robot.json](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/600/robot.json): kinematics, joint limits, speeds, torques, payloads and mass properties (JSON; m, kg, rad)
+- [Rosie 600 URDF](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/600/urdf/rosie_600.urdf): joints J1 to J6 with limits and inertials; mesh paths are relative (../meshes/), so it loads from its URL or from the unzipped kit
+- [Rosie 600 MuJoCo MJCF](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/600/mjcf/rosie_600.xml): position actuators and torque limits
+- [Rosie 600 SRDF](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/600/srdf/rosie_600.srdf): planning groups and disabled collision pairs for MoveIt
+- [Rosie 600 STEP](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/600/step/rosie_600.step): assembly, one solid per link at the home pose, mm: the structural parts' own CAD faces, motors and gearboxes as plain envelopes
+- [Rosie 600 README](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/600/README.md): conventions, joint table and tested quickstart code
+- [Rosie 600 GLB](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/600/glb/rosie_600.glb): binary glTF 2.0, one node per link in the URDF hierarchy with joint axes and limits in the node extras; loads directly in three.js, model-viewer or Blender
+- [Rosie 600 IK test cases](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/600/ik_cases.json): inverse kinematics reference cases solved by RosieOS: seed pose, target tool0 pose and joint solution (JSON)
+- [Rosie 600 benchmark trajectory (CSV)](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/600/benchmark/rosie_600_cycle_1kg.csv): pick-and-place cycle: joint positions, velocities and accelerations every 1 ms, plus the TCP
+- [Rosie 600 benchmark trajectory (JSON)](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/600/benchmark/rosie_600_cycle_1kg.json): pick-and-place cycle: joint positions, velocities and accelerations every 1 ms, plus the TCP
+- [Rosie 1000 kit (ZIP)](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/rosie-1000-sim-kit.zip)
+- [Rosie 1000 robot.json](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1000/robot.json): kinematics, joint limits, speeds, torques, payloads and mass properties (JSON; m, kg, rad)
+- [Rosie 1000 URDF](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1000/urdf/rosie_1000.urdf): joints J1 to J6 with limits and inertials; mesh paths are relative (../meshes/), so it loads from its URL or from the unzipped kit
+- [Rosie 1000 MuJoCo MJCF](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1000/mjcf/rosie_1000.xml): position actuators and torque limits
+- [Rosie 1000 SRDF](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1000/srdf/rosie_1000.srdf): planning groups and disabled collision pairs for MoveIt
+- [Rosie 1000 STEP](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1000/step/rosie_1000.step): assembly, one solid per link at the home pose, mm: the structural parts' own CAD faces, motors and gearboxes as plain envelopes
+- [Rosie 1000 README](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1000/README.md): conventions, joint table and tested quickstart code
+- [Rosie 1000 GLB](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1000/glb/rosie_1000.glb): binary glTF 2.0, one node per link in the URDF hierarchy with joint axes and limits in the node extras; loads directly in three.js, model-viewer or Blender
+- [Rosie 1000 IK test cases](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1000/ik_cases.json): inverse kinematics reference cases solved by RosieOS: seed pose, target tool0 pose and joint solution (JSON)
+- [Rosie 1000 benchmark trajectory (CSV)](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1000/benchmark/rosie_1000_cycle_1kg.csv): pick-and-place cycle: joint positions, velocities and accelerations every 1 ms, plus the TCP
+- [Rosie 1000 benchmark trajectory (JSON)](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1000/benchmark/rosie_1000_cycle_1kg.json): pick-and-place cycle: joint positions, velocities and accelerations every 1 ms, plus the TCP
+- [Rosie 1400 kit (ZIP)](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/rosie-1400-sim-kit.zip)
+- [Rosie 1400 robot.json](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1400/robot.json): kinematics, joint limits, speeds, torques, payloads and mass properties (JSON; m, kg, rad)
+- [Rosie 1400 URDF](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1400/urdf/rosie_1400.urdf): joints J1 to J6 with limits and inertials; mesh paths are relative (../meshes/), so it loads from its URL or from the unzipped kit
+- [Rosie 1400 MuJoCo MJCF](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1400/mjcf/rosie_1400.xml): position actuators and torque limits
+- [Rosie 1400 SRDF](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1400/srdf/rosie_1400.srdf): planning groups and disabled collision pairs for MoveIt
+- [Rosie 1400 STEP](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1400/step/rosie_1400.step): assembly, one solid per link at the home pose, mm: the structural parts' own CAD faces, motors and gearboxes as plain envelopes
+- [Rosie 1400 README](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1400/README.md): conventions, joint table and tested quickstart code
+- [Rosie 1400 GLB](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1400/glb/rosie_1400.glb): binary glTF 2.0, one node per link in the URDF hierarchy with joint axes and limits in the node extras; loads directly in three.js, model-viewer or Blender
+- [Rosie 1400 IK test cases](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1400/ik_cases.json): inverse kinematics reference cases solved by RosieOS: seed pose, target tool0 pose and joint solution (JSON)
+- [Rosie 1400 benchmark trajectory (CSV)](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1400/benchmark/rosie_1400_cycle_1kg.csv): pick-and-place cycle: joint positions, velocities and accelerations every 1 ms, plus the TCP
+- [Rosie 1400 benchmark trajectory (JSON)](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/sim/1400/benchmark/rosie_1400_cycle_1kg.json): pick-and-place cycle: joint positions, velocities and accelerations every 1 ms, plus the TCP
+- [rosie-1400-tool-flange.step](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/cad/rosie-1400-tool-flange.step): Rosie 1400 tool flange, STEP 3D model
+- [rosie-1400-base.step](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/cad/rosie-1400-base.step): Rosie 1400 base mounting interface, STEP 3D model
+- [rosie-1400-tool-flange.pdf](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/cad/rosie-1400-tool-flange.pdf): Rosie 1400 tool flange, dimensioned drawing (PDF)
+- [rosie-1400-base.pdf](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/cad/rosie-1400-base.pdf): Rosie 1400 base mounting interface, dimensioned drawing (PDF)
+- [rosie-1400-interfaces.json](https://raw.githubusercontent.com/advanced-metal-research/rosie-sim-kits/main/cad/rosie-1400-interfaces.json): Rosie 1400 mechanical interface dimensions, machine-readable JSON

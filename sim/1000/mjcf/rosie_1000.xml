@@ -1,0 +1,196 @@
+<!-- Rosie 1000 by Advanced Metal Research, sim kit 2026-10-09: https://advancedmetalresearch.com/assets/sim/1000/
+     MuJoCo 3.1 or later. Units m, kg, rad. Zero pose = home (tool flange facing down); site tool0 = flange face,
+     z out of the flange. Position actuators: ctrl = joint target (rad), force limited to the drive peak torque at
+     the joint (motor peak x ratio), kp = output peak torque / 0.01 rad, critically damped (dampratio 1). Armature =
+     reflected motor + gearbox inertia;
+     joint damping is nominal.
+     Visual and collision meshes are the robot's real outside surfaces: one filled solid per link, structural parts' own CAD faces,
+     motors and gearboxes as plain envelopes of the same size. Inertials are the robot's real mass properties. -->
+<mujoco model="rosie_1000">
+  <compiler angle="radian" meshdir="../meshes" autolimits="true"/>
+  <option timestep="0.002" integrator="implicitfast" gravity="0 0 -9.81"/>
+  <visual><global offwidth="1280" offheight="960"/></visual>
+  <default>
+    <default class="rosie_1000">
+      <default class="visual"><geom type="mesh" contype="0" conaffinity="0" group="2" rgba="0.82 0.83 0.85 1"/></default>
+      <default class="collision"><geom type="mesh" group="3" rgba="0.8 0.35 0.3 0.4"/></default>
+    </default>
+  </default>
+  <asset>
+    <mesh name="base_link" file="visual/base_link.stl"/>
+    <mesh name="base_link_c00" file="collision/base_link_c00.stl"/>
+    <mesh name="base_link_c01" file="collision/base_link_c01.stl"/>
+    <mesh name="base_link_c02" file="collision/base_link_c02.stl"/>
+    <mesh name="base_link_c03" file="collision/base_link_c03.stl"/>
+    <mesh name="base_link_c04" file="collision/base_link_c04.stl"/>
+    <mesh name="base_link_c05" file="collision/base_link_c05.stl"/>
+    <mesh name="base_link_c06" file="collision/base_link_c06.stl"/>
+    <mesh name="base_link_c07" file="collision/base_link_c07.stl"/>
+    <mesh name="base_link_c08" file="collision/base_link_c08.stl"/>
+    <mesh name="base_link_c09" file="collision/base_link_c09.stl"/>
+    <mesh name="link_1" file="visual/link_1.stl"/>
+    <mesh name="link_1_c00" file="collision/link_1_c00.stl"/>
+    <mesh name="link_1_c01" file="collision/link_1_c01.stl"/>
+    <mesh name="link_1_c02" file="collision/link_1_c02.stl"/>
+    <mesh name="link_1_c03" file="collision/link_1_c03.stl"/>
+    <mesh name="link_1_c04" file="collision/link_1_c04.stl"/>
+    <mesh name="link_1_c05" file="collision/link_1_c05.stl"/>
+    <mesh name="link_1_c06" file="collision/link_1_c06.stl"/>
+    <mesh name="link_1_c07" file="collision/link_1_c07.stl"/>
+    <mesh name="link_1_c08" file="collision/link_1_c08.stl"/>
+    <mesh name="link_1_c09" file="collision/link_1_c09.stl"/>
+    <mesh name="link_2" file="visual/link_2.stl"/>
+    <mesh name="link_2_c00" file="collision/link_2_c00.stl"/>
+    <mesh name="link_3" file="visual/link_3.stl"/>
+    <mesh name="link_3_c00" file="collision/link_3_c00.stl"/>
+    <mesh name="link_3_c01" file="collision/link_3_c01.stl"/>
+    <mesh name="link_3_c02" file="collision/link_3_c02.stl"/>
+    <mesh name="link_3_c03" file="collision/link_3_c03.stl"/>
+    <mesh name="link_3_c04" file="collision/link_3_c04.stl"/>
+    <mesh name="link_3_c05" file="collision/link_3_c05.stl"/>
+    <mesh name="link_3_c06" file="collision/link_3_c06.stl"/>
+    <mesh name="link_3_c07" file="collision/link_3_c07.stl"/>
+    <mesh name="link_3_c08" file="collision/link_3_c08.stl"/>
+    <mesh name="link_3_c09" file="collision/link_3_c09.stl"/>
+    <mesh name="link_4" file="visual/link_4.stl"/>
+    <mesh name="link_4_c00" file="collision/link_4_c00.stl"/>
+    <mesh name="link_4_c01" file="collision/link_4_c01.stl"/>
+    <mesh name="link_4_c02" file="collision/link_4_c02.stl"/>
+    <mesh name="link_4_c03" file="collision/link_4_c03.stl"/>
+    <mesh name="link_4_c04" file="collision/link_4_c04.stl"/>
+    <mesh name="link_4_c05" file="collision/link_4_c05.stl"/>
+    <mesh name="link_5" file="visual/link_5.stl"/>
+    <mesh name="link_5_c00" file="collision/link_5_c00.stl"/>
+    <mesh name="link_5_c01" file="collision/link_5_c01.stl"/>
+    <mesh name="link_5_c02" file="collision/link_5_c02.stl"/>
+    <mesh name="link_5_c03" file="collision/link_5_c03.stl"/>
+    <mesh name="link_5_c04" file="collision/link_5_c04.stl"/>
+    <mesh name="link_5_c05" file="collision/link_5_c05.stl"/>
+    <mesh name="link_5_c06" file="collision/link_5_c06.stl"/>
+    <mesh name="link_5_c07" file="collision/link_5_c07.stl"/>
+    <mesh name="link_5_c08" file="collision/link_5_c08.stl"/>
+    <mesh name="link_5_c09" file="collision/link_5_c09.stl"/>
+    <mesh name="link_6" file="visual/link_6.stl"/>
+    <mesh name="link_6_c00" file="collision/link_6_c00.stl"/>
+    <mesh name="link_6_c01" file="collision/link_6_c01.stl"/>
+    <mesh name="link_6_c02" file="collision/link_6_c02.stl"/>
+    <mesh name="link_6_c03" file="collision/link_6_c03.stl"/>
+    <mesh name="link_6_c04" file="collision/link_6_c04.stl"/>
+    <mesh name="link_6_c05" file="collision/link_6_c05.stl"/>
+    <mesh name="link_6_c06" file="collision/link_6_c06.stl"/>
+    <mesh name="link_6_c07" file="collision/link_6_c07.stl"/>
+    <mesh name="link_6_c08" file="collision/link_6_c08.stl"/>
+    <mesh name="link_6_c09" file="collision/link_6_c09.stl"/>
+  </asset>
+  <worldbody>
+    <light name="key" pos="1.5 -1.5 3" dir="-0.4 0.4 -1" directional="true"/>
+    <geom name="floor" type="plane" size="3 3 0.05" rgba="0.92 0.92 0.92 1" contype="0" conaffinity="0"/>
+    <body name="base_link" pos="0 0 0.175" childclass="rosie_1000">
+      <inertial pos="0.0002 -0.00001 -0.0815" mass="7.775" fullinertia="0.048026 0.047835 0.041679 -0.000003 0.00004 -0.000009"/>
+      <geom class="visual" mesh="base_link" rgba="0.30 0.31 0.33 1"/>
+      <geom class="collision" mesh="base_link_c00"/>
+      <geom class="collision" mesh="base_link_c01"/>
+      <geom class="collision" mesh="base_link_c02"/>
+      <geom class="collision" mesh="base_link_c03"/>
+      <geom class="collision" mesh="base_link_c04"/>
+      <geom class="collision" mesh="base_link_c05"/>
+      <geom class="collision" mesh="base_link_c06"/>
+      <geom class="collision" mesh="base_link_c07"/>
+      <geom class="collision" mesh="base_link_c08"/>
+      <geom class="collision" mesh="base_link_c09"/>
+      <body name="link_1" pos="0 0 0" childclass="rosie_1000">
+        <inertial pos="0.0379 0.00207 0.12031" mass="11.9522" fullinertia="0.098707 0.092492 0.060327 -0.000557 -0.014692 -0.00138"/>
+        <joint name="J1" axis="0 0 1" range="-2.96706 2.96706" armature="0.882" damping="2"/>
+        <geom class="visual" mesh="link_1"/>
+        <geom class="collision" mesh="link_1_c00"/>
+        <geom class="collision" mesh="link_1_c01"/>
+        <geom class="collision" mesh="link_1_c02"/>
+        <geom class="collision" mesh="link_1_c03"/>
+        <geom class="collision" mesh="link_1_c04"/>
+        <geom class="collision" mesh="link_1_c05"/>
+        <geom class="collision" mesh="link_1_c06"/>
+        <geom class="collision" mesh="link_1_c07"/>
+        <geom class="collision" mesh="link_1_c08"/>
+        <geom class="collision" mesh="link_1_c09"/>
+        <body name="link_2" pos="0.05 0 0.165" childclass="rosie_1000">
+          <inertial pos="0 -0.09159 0.19738" mass="5.8735" fullinertia="0.259579 0.264619 0.006976 0 0 0.001442"/>
+          <joint name="J2" axis="0 1 0" range="-1.919862 1.919862" armature="6.78" damping="4"/>
+          <geom class="visual" mesh="link_2"/>
+          <geom class="collision" mesh="link_2_c00"/>
+          <body name="link_3" pos="0 0 0.47" childclass="rosie_1000">
+            <inertial pos="0.00664 -0.01577 0.01191" mass="6.0216" fullinertia="0.020413 0.016658 0.018205 -0.000573 -0.002134 -0.000999"/>
+            <joint name="J3" axis="0 1 0" range="-2.617994 2.617994" armature="2.86" damping="2"/>
+            <geom class="visual" mesh="link_3"/>
+            <geom class="collision" mesh="link_3_c00"/>
+            <geom class="collision" mesh="link_3_c01"/>
+            <geom class="collision" mesh="link_3_c02"/>
+            <geom class="collision" mesh="link_3_c03"/>
+            <geom class="collision" mesh="link_3_c04"/>
+            <geom class="collision" mesh="link_3_c05"/>
+            <geom class="collision" mesh="link_3_c06"/>
+            <geom class="collision" mesh="link_3_c07"/>
+            <geom class="collision" mesh="link_3_c08"/>
+            <geom class="collision" mesh="link_3_c09"/>
+            <body name="link_4" pos="0.081 0 0.065" childclass="rosie_1000">
+              <inertial pos="0.22594 -0.02691 -0.00169" mass="5.3544" fullinertia="0.011498 0.092199 0.095824 0.016226 0.000524 0.000101"/>
+              <joint name="J4" axis="1 0 0" range="-3.141593 3.141593" armature="0.087" damping="0.5"/>
+              <geom class="visual" mesh="link_4"/>
+              <geom class="collision" mesh="link_4_c00"/>
+              <geom class="collision" mesh="link_4_c01"/>
+              <geom class="collision" mesh="link_4_c02"/>
+              <geom class="collision" mesh="link_4_c03"/>
+              <geom class="collision" mesh="link_4_c04"/>
+              <geom class="collision" mesh="link_4_c05"/>
+              <body name="link_5" pos="0.399 0 0" childclass="rosie_1000">
+                <inertial pos="0.00001 -0.01272 -0.01648" mass="1.3356" fullinertia="0.001668 0.001536 0.00097 0.000005 -0.000002 0.00024"/>
+                <joint name="J5" axis="0 1 0" range="-2.181662 2.181662" armature="0.857" damping="0.5"/>
+                <geom class="visual" mesh="link_5"/>
+                <geom class="collision" mesh="link_5_c00"/>
+                <geom class="collision" mesh="link_5_c01"/>
+                <geom class="collision" mesh="link_5_c02"/>
+                <geom class="collision" mesh="link_5_c03"/>
+                <geom class="collision" mesh="link_5_c04"/>
+                <geom class="collision" mesh="link_5_c05"/>
+                <geom class="collision" mesh="link_5_c06"/>
+                <geom class="collision" mesh="link_5_c07"/>
+                <geom class="collision" mesh="link_5_c08"/>
+                <geom class="collision" mesh="link_5_c09"/>
+                <body name="link_6" pos="0 0 -0.07725" childclass="rosie_1000">
+                  <inertial pos="-0.00006 0 0.01074" mass="0.2413" fullinertia="0.000051 0.00005 0.000094 0 0 0"/>
+                  <joint name="J6" axis="0 0 1" range="-3.141593 3.141593" armature="0.054" damping="0.5"/>
+                  <geom class="visual" mesh="link_6"/>
+                  <geom class="collision" mesh="link_6_c00"/>
+                  <geom class="collision" mesh="link_6_c01"/>
+                  <geom class="collision" mesh="link_6_c02"/>
+                  <geom class="collision" mesh="link_6_c03"/>
+                  <geom class="collision" mesh="link_6_c04"/>
+                  <geom class="collision" mesh="link_6_c05"/>
+                  <geom class="collision" mesh="link_6_c06"/>
+                  <geom class="collision" mesh="link_6_c07"/>
+                  <geom class="collision" mesh="link_6_c08"/>
+                  <geom class="collision" mesh="link_6_c09"/>
+                  <site name="tool0" pos="0 0 0" quat="0 1 0 0" size="0.006" rgba="0.85 0.1 0.1 1"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <contact>
+    <exclude body1="base_link" body2="link_1"/>
+  </contact>
+  <actuator>
+    <position name="J1" joint="J1" kp="15700" dampratio="1" ctrlrange="-2.96706 2.96706" forcerange="-445 445"/>
+    <position name="J2" joint="J2" kp="56800" dampratio="1" ctrlrange="-1.919862 1.919862" forcerange="-1113 1113"/>
+    <position name="J3" joint="J3" kp="33300" dampratio="1" ctrlrange="-2.617994 2.617994" forcerange="-836 836"/>
+    <position name="J4" joint="J4" kp="5400" dampratio="1" ctrlrange="-3.141593 3.141593" forcerange="-112 112"/>
+    <position name="J5" joint="J5" kp="5400" dampratio="1" ctrlrange="-2.181662 2.181662" forcerange="-112 112"/>
+    <position name="J6" joint="J6" kp="2800" dampratio="1" ctrlrange="-3.141593 3.141593" forcerange="-112 112"/>
+  </actuator>
+  <keyframe>
+    <key name="home" qpos="0 0 0 0 0 0" ctrl="0 0 0 0 0 0"/>
+    <key name="work" qpos="0.523599 0.785398 -0.174533 0 -0.610865 0" ctrl="0.523599 0.785398 -0.174533 0 -0.610865 0"/>
+  </keyframe>
+</mujoco>

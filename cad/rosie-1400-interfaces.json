@@ -1,0 +1,227 @@
+{
+  "schema": "amr.rosie-1400.mechanical-interfaces.v1",
+  "product": "Rosie 1400",
+  "manufacturer": "Advanced Metal Research",
+  "generated": "2026-09-30",
+  "units": {
+    "length": "mm",
+    "angle": "deg"
+  },
+  "status": "For reference. Confirm with AMR before machining. Null means not determinable from the CAD.",
+  "source": {
+    "cad": "Rosie 1400 robot STEP (rosie-1430-clean.step, Autodesk Fusion export 2026-09-26)",
+    "method": "Interface solids extracted unchanged from the B-rep and moved into the interface frames. Dimensions measured from their faces with Open CASCADE."
+  },
+  "contact": "generalcontact@advancedmetalresearch.com",
+  "page": "/docs/reference/mechanical-interfaces",
+  "docs": "/docs/reference/mechanical-interfaces",
+  "interfaces": {
+    "base": {
+      "name": "Robot base (floor or pedestal mounting)",
+      "part": "1-01-02-base-plate",
+      "source_solid": "rosie-1430-clean/1-00-02-dog:1/1-01-02-base-plate:1",
+      "files": {
+        "step": {
+          "href": "/assets/cad/rosie-1400-base.step",
+          "bytes": 250815
+        },
+        "pdf": {
+          "href": "/assets/cad/rosie-1400-base.pdf"
+        },
+        "svg_sheet": {
+          "href": "/assets/cad/rosie-1400-base.svg"
+        },
+        "svg_views": [
+          "/assets/cad/rosie-1400-base-plan.svg",
+          "/assets/cad/rosie-1400-base-section.svg"
+        ]
+      },
+      "frame": {
+        "name": "base",
+        "origin": "Centre of the base-plate underside (the mounting face), on the J1 axis",
+        "x": "Robot forward: the direction of the J2 offset with J1 at zero",
+        "y": "Z cross X",
+        "z": "Up, along the J1 axis",
+        "origin_in_robot_cad_mm": [
+          0.0,
+          -0.0,
+          -29.4
+        ],
+        "note": "Axes are parallel to the robot CAD frame; the origin is the robot CAD origin moved down to the mounting face.",
+        "urdf": "Orientation and XY origin match the J1 joint frame (link_1 origin at J1 = 0) of RosieOS robot_description rosie_1400_v3. That URDF is a simplified model; take heights from this file."
+      },
+      "plate": {
+        "footprint_mm": [
+          300,
+          300
+        ],
+        "corner_radius_mm": 25,
+        "thickness_mm": 28.4,
+        "thickness_note": "Thickness at the plate edges and at the anchor holes. The robot's own seat features stand above it inside the anchor pattern and are not part of the mounting interface."
+      },
+      "mounting_face": {
+        "z_mm": 0,
+        "flat_contact_area_mm2": 72970,
+        "description": "Flat underside, no spigot or dowel holes. The robot's own fasteners are recessed into it."
+      },
+      "mounting_holes": {
+        "purpose": "Floor or pedestal anchors",
+        "count": 4,
+        "diameter_mm": 26,
+        "type": "through",
+        "thread": null,
+        "pattern": "rectangular",
+        "spacing_mm": [
+          250,
+          250
+        ],
+        "positions_mm": [
+          [
+            -125,
+            125
+          ],
+          [
+            125,
+            -125
+          ],
+          [
+            125,
+            125
+          ],
+          [
+            -125,
+            -125
+          ]
+        ],
+        "clamp_length_mm": 28.4,
+        "note": "Plain Ø26 through holes. Ø26 is the ISO 273 medium clearance for M24; confirm anchor size, grade and preload with AMR."
+      },
+      "locating_features": {
+        "spigot_or_pilot": null,
+        "dowel_holes": null,
+        "note": "The CAD has no floor-side spigot or dowel holes. The plate is located by the anchor pattern. Confirm the locating method with AMR if repeatable re-mounting is needed."
+      },
+      "robot_side_features": "Not part of the mounting interface: the holes and recesses inside the anchor pattern take the robot's own fasteners. Their geometry is in the STEP file.",
+      "iso_9409_1": null,
+      "verify": [
+        "Anchor bolt size, grade and tightening torque",
+        "Locating method for repeatable re-mounting (no dowels in the CAD)"
+      ]
+    },
+    "tool_flange": {
+      "name": "Tool flange (J6 output, end-of-arm mounting)",
+      "part": "HSS-17-100-I-D8 hollow-shaft unit, LSS-17 output (bought-in reducer unit)",
+      "source_solid": "rosie-1430-clean/5-00-03:1/HSS-17-100-I-D8:1/LSS-17:1",
+      "files": {
+        "step": {
+          "href": "/assets/cad/rosie-1400-tool-flange.step",
+          "bytes": 396053
+        },
+        "pdf": {
+          "href": "/assets/cad/rosie-1400-tool-flange.pdf"
+        },
+        "svg_sheet": {
+          "href": "/assets/cad/rosie-1400-tool-flange.svg"
+        },
+        "svg_views": [
+          "/assets/cad/rosie-1400-tool-flange-face.svg",
+          "/assets/cad/rosie-1400-tool-flange-section.svg"
+        ]
+      },
+      "frame": {
+        "name": "tool_flange",
+        "origin": "Centre of the flange face, on the J6 axis",
+        "z": "Out of the flange face, along the J6 axis",
+        "x": "Midway between two mounting holes: the first mounting hole is 30 deg from +X",
+        "y": "Z cross X",
+        "origin_in_robot_cad_mm": [
+          933.0,
+          0.0,
+          855.0
+        ],
+        "axes_in_robot_cad_at_home": {
+          "x": [
+            0.0,
+            0.052,
+            -0.999
+          ],
+          "y": [
+            0.0,
+            0.999,
+            0.052
+          ],
+          "z": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        "clock_note": "At the CAD home pose, +X is rotated 3 deg about Z from straight down. Confirm the hole-pattern angle at J6 = 0 on the robot with AMR.",
+        "urdf": "In RosieOS rosie_1400_v3, tool0 is the torch contact-tip frame, not this flange. The link_6 origin lies on the J6 axis at the flange face with +Z pointing into the wrist, so this frame's Z is link_6 -Z."
+      },
+      "mounting_face": {
+        "diameter_mm": 38,
+        "raised_mm": 0.5,
+        "note": "Flat Ø38 face, 0.5 mm proud of the surrounding shoulder, with a 0.4 x 45 deg edge chamfer. No fit is given; it is not a register."
+      },
+      "mounting_holes": {
+        "purpose": "Tool mounting",
+        "thread": "M5",
+        "thread_source": "AMR (the CAD models the Ø4.2 tap-drill bore)",
+        "count": 6,
+        "diameter_mm": 4.2,
+        "pcd_mm": 27,
+        "angles_deg": [
+          30,
+          90,
+          150,
+          210,
+          270,
+          330
+        ],
+        "positions_mm": [
+          [
+            11.691,
+            6.75
+          ],
+          [
+            0,
+            13.5
+          ],
+          [
+            -11.691,
+            6.75
+          ],
+          [
+            -11.691,
+            -6.75
+          ],
+          [
+            0,
+            -13.5
+          ],
+          [
+            11.691,
+            -6.75
+          ]
+        ],
+        "first_hole_angle_from_x_deg": 30,
+        "type": "through the output plate",
+        "thread_depth_mm": 11.7,
+        "output_plate_thickness_mm": 12.5,
+        "note": "Tapped through the 12.5 mm output plate, with 0.4 mm chamfers at both ends, leaving 11.7 mm of thread. Screws must not protrude past the plate: it opens into the reducer unit."
+      },
+      "envelope": {
+        "outside_diameter_mm": 79,
+        "length_mm": 39,
+        "note": "Largest diameter of the flange unit (its Ø79 mounting flange) and its length from the flange face to its rear face."
+      },
+      "other_face_features": "Not part of the published tool interface: the face also carries 6 x Ø4.2 holes on PCD 19, 3 x Ø3 holes on PCD 15 and a Ø10 bore. Their geometry is in the STEP file.",
+      "iso_9409_1": null,
+      "iso_9409_1_note": "Not an ISO 9409-1 flange: PCD 27 is not an ISO 9409-1 pitch circle. Tooling on the ISO adapter is quoted separately.",
+      "verify": [
+        "Hole-pattern clock angle at J6 = 0"
+      ]
+    }
+  }
+}

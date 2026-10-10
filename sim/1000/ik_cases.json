@@ -1,0 +1,1433 @@
+{
+ "schema": "amr.rosie-sim-kit.ik-cases.v1",
+ "model": "rosie_1000",
+ "name": "Rosie 1000",
+ "version": "2026-10-09",
+ "url": "https://advancedmetalresearch.com/assets/sim/1000/ik_cases.json",
+ "description": "Inverse kinematics reference cases for the Rosie 1000, solved by RosieOS's IK. Each case gives a seed pose, the straight Cartesian move RosieOS resolved from it, the target pose of tool0 and the joint solution RosieOS reached, plus every other solution inside the joint limits. Self-contained: the kinematic chain below is all you need to check them.",
+ "units": {
+  "length": "m",
+  "angle": "rad (q_deg in degrees)"
+ },
+ "frames": {
+  "base": "base_link (the J1 frame)",
+  "tip": "tool0: the tool flange face, z out of the flange; link_6 turned 180 deg about x",
+  "target": "tool0 pose in base_link: xyz, quaternion (w, x, y, z), rotation matrix (columns = tool0 axes in base_link)"
+ },
+ "chain": {
+  "joints": [
+   {
+    "name": "J1",
+    "origin_xyz": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "lower": -2.96706,
+    "upper": 2.96706
+   },
+   {
+    "name": "J2",
+    "origin_xyz": [
+     0.05,
+     0.0,
+     0.165
+    ],
+    "axis": [
+     0,
+     1,
+     0
+    ],
+    "lower": -1.919862,
+    "upper": 1.919862
+   },
+   {
+    "name": "J3",
+    "origin_xyz": [
+     0.0,
+     0.0,
+     0.47
+    ],
+    "axis": [
+     0,
+     1,
+     0
+    ],
+    "lower": -2.617994,
+    "upper": 2.617994
+   },
+   {
+    "name": "J4",
+    "origin_xyz": [
+     0.081,
+     0.0,
+     0.065
+    ],
+    "axis": [
+     1,
+     0,
+     0
+    ],
+    "lower": -3.141593,
+    "upper": 3.141593
+   },
+   {
+    "name": "J5",
+    "origin_xyz": [
+     0.399,
+     0.0,
+     0.0
+    ],
+    "axis": [
+     0,
+     1,
+     0
+    ],
+    "lower": -2.181662,
+    "upper": 2.181662
+   },
+   {
+    "name": "J6",
+    "origin_xyz": [
+     0.0,
+     0.0,
+     -0.07725
+    ],
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "lower": -3.141593,
+    "upper": 3.141593
+   }
+  ],
+  "tool0_rpy": [
+   3.141592653589793,
+   0,
+   0
+  ],
+  "fk": "T = product over J1..J6 of Trans(origin_xyz) * Rot(axis, q); tool0 = T * RotX(pi). Link frames are parallel at q = 0, so every joint origin is a pure translation. Same as robot.json."
+ },
+ "solver": {
+  "name": "RosieOS Cartesian resolver: robot-v4-cartesiand --resolve-only, operation \"move\"",
+  "method": "A straight Cartesian move from seed_q: translate along a base or tool axis, or rotate about one keeping the TCP position fixed (tool axes frozen at the start pose). The line is cut into samples of at most 1 mm or 0.25 deg, and each sample is solved seeded from the previous one by damped least squares (lambda 0.02, finite-difference Jacobian, joint step at most 0.16 rad, at most 160 iterations, stopping under 5 um and 0.001 deg), polished by up to 4 Newton steps toward 1e-11, and each joint is put on the branch nearest its seed (no full-turn jumps). Every sample must stay inside the joint limits and away from singularities. expected.q is the last sample: the solution RosieOS reaches for the target.",
+  "provenance": "RosieOS has no robot description of the Rosie 1000. These cases come from RosieOS's own IK solver binary, given this kit's kinematic chain: the same solver, seed rule, tolerances and frames RosieOS uses for its robots.",
+  "source": {
+   "repo": "RosieOS",
+   "commit": "6d1fd9e4409bb67a22a0036025b0fcafdc374a32",
+   "commit_date": "2026-10-08",
+   "files": [
+    "motion-server/v1/src/robot_v4_cartesian_cli.hpp",
+    "motion-server/v1/src/cartesian_resolver.hpp",
+    "motion-server/v1/src/robot_v4_cartesian_nats_protocol.hpp"
+   ],
+   "functions": [
+    "resolve_cartesian_move",
+    "solve_cartesian_line_sample",
+    "cartesian_line_target",
+    "solve_spreadsheet_tcp_position_ik",
+    "urdf_forward_kinematics_j1_base"
+   ],
+   "note": "The binary was built from this commit; the solver sources are unchanged at the later commit 9be176fa."
+  },
+  "binary_sha256": "b3071459283d71a184f52e91c1a85de3a4da81c5037d77029834518d1a9feb04",
+  "fk_check": "the binary's own forward kinematics on every seed equals the chain above within 2e-16 m"
+ },
+ "tolerance": {
+  "position_m": 1e-09,
+  "rotation": 1e-09,
+  "note": "expected.q and every all_solutions entry, as rounded here (12 decimals), reproduce the target with the chain above within these (m, and rotation-matrix entries); compare your own solver within 1e-6."
+ },
+ "branches": {
+  "shoulder": "front: J1 points the arm plane toward the wrist centre (cos(J1 - atan2(y_w, x_w)) > 0, wrist centre = J5 origin in base_link); back: the arm reaches over the J1 axis (J1 turned 180 deg from that).",
+  "elbow": "up: sin(J3 - J3_straight) > 0, where J3_straight = -atan2(Lf, a3) is the J3 angle at which the forearm lines up with the upper arm (Lf = J4 origin x + J5 origin x, the J3 to wrist centre distance along the forearm; a3 = J4 origin z, the elbow offset; from joints[].origin_xyz); down: the other side.",
+  "wrist": "nonflip: cos(J5) > 0; flip: cos(J5) < 0 (J4 + 180 deg, J5 -> 180 deg - J5, J6 + 180 deg). The wrist is singular at J5 = +/-90 deg, where the J4 and J6 axes line up.",
+  "turns": "Every solution inside the joint limits is listed, including angles 360 deg apart where a joint's range allows both."
+ },
+ "all_solutions_note": "Every solution inside the joint limits, from the closed form (this arm's wrist centre lies in the plane through the J1 axis and J4-J6 meet at it). rosieos = true marks the one RosieOS returned.",
+ "cases_note": "Seeds: home, work, the benchmark cycle poses A_low and B_high, then eight seeded poses away from singularities (|cos J5| >= 0.3, elbow at least 14 deg from straight, wrist centre at least 150 mm farther from the J1 axis than J2). Per seed, the first move RosieOS accepted from a fixed list.",
+ "cases": [
+  {
+   "id": "home",
+   "seed_q": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "move": {
+    "frame": "base",
+    "axis": "x",
+    "amount": 0.1,
+    "unit": "m",
+    "samples": 100
+   },
+   "target": {
+    "xyz": [
+     0.63,
+     0.0,
+     0.62275
+    ],
+    "quat_wxyz": [
+     0.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "rotation": [
+     [
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ]
+   },
+   "expected": {
+    "q": [
+     0.0,
+     0.217972197121,
+     -0.241179817731,
+     0.0,
+     0.02320762061,
+     0.0
+    ],
+    "q_deg": [
+     0.0,
+     12.488887,
+     -13.818586,
+     0.0,
+     1.329699,
+     0.0
+    ],
+    "branch": {
+     "shoulder": "front",
+     "elbow": "up",
+     "wrist": "nonflip"
+    }
+   },
+   "all_solutions": [
+    {
+     "q": [
+      0.0,
+      0.217972197121,
+      -0.241179817731,
+      0.0,
+      0.02320762061,
+      0.0
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "nonflip"
+     },
+     "rosieos": true
+    }
+   ]
+  },
+  {
+   "id": "work",
+   "seed_q": [
+    0.523598776,
+    0.785398163,
+    -0.174532925,
+    0.0,
+    -0.610865238,
+    0.0
+   ],
+   "move": {
+    "frame": "base",
+    "axis": "z",
+    "amount": -0.08,
+    "unit": "m",
+    "samples": 80
+   },
+   "target": {
+    "xyz": [
+     0.703918989804,
+     0.406407818628,
+     0.118018380805
+    ],
+    "quat_wxyz": [
+     0.0,
+     -0.965925826237,
+     -0.258819045297,
+     -0.0
+    ],
+    "rotation": [
+     [
+      0.866025403584,
+      0.500000000348,
+      0.0
+     ],
+     [
+      0.500000000348,
+      -0.866025403584,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ]
+   },
+   "expected": {
+    "q": [
+     0.523598776,
+     0.876089236532,
+     -0.148715288823,
+     0.0,
+     -0.727373947708,
+     0.0
+    ],
+    "q_deg": [
+     30.0,
+     50.196216,
+     -8.520758,
+     0.0,
+     -41.675457,
+     0.0
+    ],
+    "branch": {
+     "shoulder": "front",
+     "elbow": "up",
+     "wrist": "nonflip"
+    }
+   },
+   "all_solutions": [
+    {
+     "q": [
+      0.523598776,
+      0.876089236532,
+      -0.148715288826,
+      -0.0,
+      -0.727373947706,
+      0.0
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "nonflip"
+     },
+     "rosieos": true
+    },
+    {
+     "q": [
+      -2.61799387759,
+      -1.088252273844,
+      -2.31695190089,
+      -3.14159265359,
+      -0.263611521144,
+      -0.0
+     ],
+     "branch": {
+      "shoulder": "back",
+      "elbow": "down",
+      "wrist": "nonflip"
+     },
+     "rosieos": false
+    },
+    {
+     "q": [
+      -2.61799387759,
+      -1.088252273844,
+      -2.31695190089,
+      3.14159265359,
+      -0.263611521144,
+      -0.0
+     ],
+     "branch": {
+      "shoulder": "back",
+      "elbow": "down",
+      "wrist": "nonflip"
+     },
+     "rosieos": false
+    }
+   ]
+  },
+  {
+   "id": "benchmark_A_low",
+   "seed_q": [
+    -0.41091063,
+    0.277467563,
+    0.995396839,
+    0.0,
+    -1.272864402,
+    0.41091063
+   ],
+   "move": {
+    "frame": "base",
+    "axis": "y",
+    "amount": 0.1,
+    "unit": "m",
+    "samples": 100
+   },
+   "target": {
+    "xyz": [
+     0.350000000052,
+     -0.05249999994,
+     0.099999999923
+    ],
+    "quat_wxyz": [
+     0.0,
+     1.0,
+     0.0,
+     -0.0
+    ],
+    "rotation": [
+     [
+      1.0,
+      0.0,
+      -0.0
+     ],
+     [
+      0.0,
+      -1.0,
+      -0.0
+     ],
+     [
+      0.0,
+      0.0,
+      -1.0
+     ]
+    ]
+   },
+   "expected": {
+    "q": [
+     -0.14888994742,
+     0.238900113458,
+     1.057352168883,
+     -0.0,
+     -1.296252282341,
+     0.14888994742
+    ],
+    "q_deg": [
+     -8.530766,
+     13.687968,
+     60.581817,
+     -0.0,
+     -74.269785,
+     8.530766
+    ],
+    "branch": {
+     "shoulder": "front",
+     "elbow": "up",
+     "wrist": "nonflip"
+    }
+   },
+   "all_solutions": [
+    {
+     "q": [
+      -0.14888994742,
+      0.238900113458,
+      1.057352168883,
+      -0.0,
+      -1.296252282341,
+      0.14888994742
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "nonflip"
+     },
+     "rosieos": true
+    },
+    {
+     "q": [
+      -0.14888994742,
+      0.238900113458,
+      1.057352168883,
+      -3.14159265359,
+      -1.845340371249,
+      -2.99270270617
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "flip"
+     },
+     "rosieos": false
+    },
+    {
+     "q": [
+      -0.14888994742,
+      0.238900113458,
+      1.057352168883,
+      3.14159265359,
+      -1.845340371249,
+      -2.99270270617
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "flip"
+     },
+     "rosieos": false
+    }
+   ]
+  },
+  {
+   "id": "benchmark_B_high",
+   "seed_q": [
+    0.41091063,
+    0.204905248,
+    0.991237289,
+    0.0,
+    -1.196142537,
+    -0.41091063
+   ],
+   "move": {
+    "frame": "tool",
+    "axis": "rz",
+    "amount": 0.5,
+    "unit": "rad",
+    "samples": 115
+   },
+   "target": {
+    "xyz": [
+     0.350000000105,
+     0.152499999963,
+     0.125000000091
+    ],
+    "quat_wxyz": [
+     0.0,
+     -0.968912421711,
+     0.247403959255,
+     -0.0
+    ],
+    "rotation": [
+     [
+      0.87758256189,
+      -0.479425538604,
+      0.0
+     ],
+     [
+      -0.479425538604,
+      -0.87758256189,
+      0.0
+     ],
+     [
+      0.0,
+      -0.0,
+      -1.0
+     ]
+    ]
+   },
+   "expected": {
+    "q": [
+     0.41091063,
+     0.204905248,
+     0.991237289,
+     0.0,
+     -1.196142537,
+     -0.91091063
+    ],
+    "q_deg": [
+     23.543445,
+     11.740206,
+     56.793713,
+     0.0,
+     -68.533919,
+     -52.191335
+    ],
+    "branch": {
+     "shoulder": "front",
+     "elbow": "up",
+     "wrist": "nonflip"
+    }
+   },
+   "all_solutions": [
+    {
+     "q": [
+      0.41091063,
+      0.204905248,
+      0.991237289,
+      -0.0,
+      -1.196142537,
+      -0.91091063
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "nonflip"
+     },
+     "rosieos": true
+    },
+    {
+     "q": [
+      0.41091063,
+      0.204905248,
+      0.991237289,
+      -3.14159265359,
+      -1.94545011659,
+      2.23068202359
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "flip"
+     },
+     "rosieos": false
+    },
+    {
+     "q": [
+      0.41091063,
+      0.204905248,
+      0.991237289,
+      3.14159265359,
+      -1.94545011659,
+      2.23068202359
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "flip"
+     },
+     "rosieos": false
+    }
+   ]
+  },
+  {
+   "id": "random_1",
+   "seed_q": [
+    0.101524419,
+    0.318979255,
+    -0.121718715,
+    -1.491638534,
+    0.100387937,
+    -1.553021044
+   ],
+   "move": {
+    "frame": "base",
+    "axis": "rx",
+    "amount": 0.2,
+    "unit": "rad",
+    "samples": 46
+   },
+   "target": {
+    "xyz": [
+     0.676343262904,
+     -0.008114720389,
+     0.576515959792
+    ],
+    "quat_wxyz": [
+     0.479833124947,
+     0.616146008816,
+     -0.497702959992,
+     0.377380486564
+    ],
+    "rotation": [
+     [
+      0.219751463952,
+      -0.975474701074,
+      -0.012585771974
+     ],
+     [
+      -0.251156068424,
+      -0.044103871638,
+      -0.96694130008
+     ],
+     [
+      0.94267169438,
+      0.215647759255,
+      -0.254688281127
+     ]
+    ]
+   },
+   "expected": {
+    "q": [
+     0.09798722042,
+     0.316859386739,
+     -0.150437878814,
+     -1.29796653334,
+     0.063494162931,
+     -1.535430851071
+    ],
+    "q_deg": [
+     5.614254,
+     18.154706,
+     -8.619456,
+     -74.368004,
+     3.637948,
+     -87.973708
+    ],
+    "branch": {
+     "shoulder": "front",
+     "elbow": "up",
+     "wrist": "nonflip"
+    }
+   },
+   "all_solutions": [
+    {
+     "q": [
+      0.09798722042,
+      0.316859386743,
+      -0.150437878819,
+      -1.297966533343,
+      0.063494162936,
+      -1.535430851071
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "nonflip"
+     },
+     "rosieos": true
+    }
+   ]
+  },
+  {
+   "id": "random_2",
+   "seed_q": [
+    -1.037067611,
+    0.779253787,
+    0.216442232,
+    1.828266562,
+    1.06595014,
+    -1.264816948
+   ],
+   "move": {
+    "frame": "tool",
+    "axis": "z",
+    "amount": 0.05,
+    "unit": "m",
+    "samples": 50
+   },
+   "target": {
+    "xyz": [
+     0.381157245542,
+     -0.528014550564,
+     0.233928216727
+    ],
+    "quat_wxyz": [
+     0.72692028389,
+     -0.153335781935,
+     0.275256997092,
+     0.610170979643
+    ],
+    "rotation": [
+     [
+      0.103849922306,
+      -0.971504817252,
+      0.213057700384
+     ],
+     [
+      0.802677829724,
+      0.208359027159,
+      0.558833443408
+     ],
+     [
+      -0.587301877493,
+      0.11298188287,
+      0.80144344706
+     ]
+    ]
+   },
+   "expected": {
+    "q": [
+     -1.00255137876,
+     0.689231697603,
+     0.270054840723,
+     1.907891861919,
+     1.03682277808,
+     -1.323557432423
+    ],
+    "q_deg": [
+     -57.441963,
+     39.490067,
+     15.473003,
+     109.314151,
+     59.405569,
+     -75.834255
+    ],
+    "branch": {
+     "shoulder": "front",
+     "elbow": "up",
+     "wrist": "nonflip"
+    }
+   },
+   "all_solutions": [
+    {
+     "q": [
+      -1.00255137876,
+      0.689231697603,
+      0.270054840723,
+      1.907891861919,
+      1.03682277808,
+      -1.323557432423
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "nonflip"
+     },
+     "rosieos": true
+    },
+    {
+     "q": [
+      -1.00255137876,
+      0.689231697603,
+      0.270054840723,
+      -1.233700791671,
+      2.10476987551,
+      1.818035221167
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "flip"
+     },
+     "rosieos": false
+    }
+   ]
+  },
+  {
+   "id": "random_3",
+   "seed_q": [
+    -0.379040916,
+    0.946162476,
+    -2.054569819,
+    -0.230800054,
+    0.204856225,
+    -2.498754266
+   ],
+   "move": {
+    "frame": "base",
+    "axis": "ry",
+    "amount": -0.2,
+    "unit": "rad",
+    "samples": 46
+   },
+   "target": {
+    "xyz": [
+     0.593826614811,
+     -0.255145621126,
+     0.851537189365
+    ],
+    "quat_wxyz": [
+     0.421379631291,
+     -0.018503970853,
+     0.85738674937,
+     -0.294931808051
+    ],
+    "rotation": [
+     [
+      -0.644193618791,
+      0.216826394225,
+      0.733485443807
+     ],
+     [
+      -0.280286631905,
+      0.825345663325,
+      -0.49014685555
+     ],
+     [
+      -0.711655805488,
+      -0.521335641212,
+      -0.470908869865
+     ]
+    ]
+   },
+   "expected": {
+    "q": [
+     -0.38437740029,
+     0.98910248663,
+     -2.139100527533,
+     -0.180856216717,
+     0.077067541465,
+     -2.592727503618
+    ],
+    "q_deg": [
+     -22.023203,
+     56.671398,
+     -122.561432,
+     -10.362298,
+     4.415645,
+     -148.552343
+    ],
+    "branch": {
+     "shoulder": "front",
+     "elbow": "down",
+     "wrist": "nonflip"
+    }
+   },
+   "all_solutions": [
+    {
+     "q": [
+      -0.38437740029,
+      0.275150069375,
+      -0.733296297788,
+      -0.219365313186,
+      -0.602140758722,
+      -2.73242223901
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "nonflip"
+     },
+     "rosieos": false
+    },
+    {
+     "q": [
+      -0.38437740029,
+      0.989102486607,
+      -2.139100527481,
+      -0.180856216716,
+      0.077067541435,
+      -2.592727503624
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "down",
+      "wrist": "nonflip"
+     },
+     "rosieos": true
+    }
+   ]
+  },
+  {
+   "id": "random_4",
+   "seed_q": [
+    -0.960104594,
+    -1.370630743,
+    0.283450213,
+    2.214486794,
+    0.782862957,
+    1.791351663
+   ],
+   "move": {
+    "frame": "tool",
+    "axis": "x",
+    "amount": 0.06,
+    "unit": "m",
+    "samples": 60
+   },
+   "target": {
+    "xyz": [
+     -0.194088370039,
+     0.279488967489,
+     0.691626967809
+    ],
+    "quat_wxyz": [
+     0.036465051028,
+     -0.113749466786,
+     -0.83687610945,
+     -0.534200090126
+    ],
+    "rotation": [
+     [
+      -0.971462717719,
+      0.229347689524,
+      0.060496490747
+     ],
+     [
+      0.151429155341,
+      0.403382645029,
+      0.902414346407
+     ],
+     [
+      0.182563410889,
+      0.885822825964,
+      -0.426601127525
+     ]
+    ]
+   },
+   "expected": {
+    "q": [
+     -0.812355349547,
+     -1.376262514579,
+     0.194991762654,
+     2.118654111988,
+     0.678474438541,
+     1.734123405092
+    ],
+    "q_deg": [
+     -46.544533,
+     -78.854034,
+     11.172205,
+     121.389939,
+     38.873722,
+     99.357952
+    ],
+    "branch": {
+     "shoulder": "back",
+     "elbow": "up",
+     "wrist": "nonflip"
+    }
+   },
+   "all_solutions": [
+    {
+     "q": [
+      2.329237304043,
+      -0.494182581238,
+      0.323005712744,
+      -0.902330086452,
+      -0.560757723451,
+      0.341980294565
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "nonflip"
+     },
+     "rosieos": false
+    },
+    {
+     "q": [
+      -0.812355349547,
+      -1.376262514579,
+      0.194991762654,
+      2.118654111988,
+      0.678474438541,
+      1.734123405092
+     ],
+     "branch": {
+      "shoulder": "back",
+      "elbow": "up",
+      "wrist": "nonflip"
+     },
+     "rosieos": true
+    }
+   ]
+  },
+  {
+   "id": "random_5",
+   "seed_q": [
+    0.09324534,
+    -0.896324247,
+    -0.842196013,
+    1.686534658,
+    -1.101280093,
+    -1.589635867
+   ],
+   "move": {
+    "frame": "base",
+    "axis": "x",
+    "amount": 0.1,
+    "unit": "m",
+    "samples": 100
+   },
+   "target": {
+    "xyz": [
+     -0.377947210467,
+     -0.009826177658,
+     0.988171305181
+    ],
+    "quat_wxyz": [
+     0.962836088191,
+     -0.232427006161,
+     -0.103452319974,
+     0.090675087962
+    ],
+    "rotation": [
+     [
+      0.96215129183,
+      -0.126520267956,
+      -0.241365932612
+     ],
+     [
+      0.222700720004,
+      0.87551143046,
+      0.428817122377
+     ],
+     [
+      0.157064575698,
+      -0.466339315231,
+      0.870550608598
+     ]
+    ]
+   },
+   "expected": {
+    "q": [
+     0.118979207252,
+     -0.952589857969,
+     -0.543199983218,
+     2.079575545456,
+     -1.023544994008,
+     -1.112534469505
+    ],
+    "q_deg": [
+     6.817006,
+     -54.579378,
+     -31.123066,
+     119.150902,
+     -58.644808,
+     -63.74353
+    ],
+    "branch": {
+     "shoulder": "back",
+     "elbow": "up",
+     "wrist": "nonflip"
+    }
+   },
+   "all_solutions": [
+    {
+     "q": [
+      0.118979207252,
+      -0.952589857969,
+      -0.543199983219,
+      2.079575545453,
+      -1.023544994007,
+      -1.112534469508
+     ],
+     "branch": {
+      "shoulder": "back",
+      "elbow": "up",
+      "wrist": "nonflip"
+     },
+     "rosieos": true
+    },
+    {
+     "q": [
+      0.118979207252,
+      -0.952589857969,
+      -0.543199983219,
+      -1.062017108137,
+      -2.118047659582,
+      2.029058184082
+     ],
+     "branch": {
+      "shoulder": "back",
+      "elbow": "up",
+      "wrist": "flip"
+     },
+     "rosieos": false
+    },
+    {
+     "q": [
+      0.118979207252,
+      -0.045163793293,
+      -2.32919684205,
+      0.742069437657,
+      -0.833314787745,
+      -2.665659405013
+     ],
+     "branch": {
+      "shoulder": "back",
+      "elbow": "down",
+      "wrist": "nonflip"
+     },
+     "rosieos": false
+    }
+   ]
+  },
+  {
+   "id": "random_6",
+   "seed_q": [
+    -1.257899732,
+    0.485920442,
+    0.07008274,
+    1.627884014,
+    -1.0832979,
+    2.415153654
+   ],
+   "move": {
+    "frame": "base",
+    "axis": "z",
+    "amount": -0.08,
+    "unit": "m",
+    "samples": 80
+   },
+   "target": {
+    "xyz": [
+     0.271564539159,
+     -0.722031302727,
+     0.268193665913
+    ],
+    "quat_wxyz": [
+     0.302958344777,
+     0.84559179259,
+     -0.082340187713,
+     0.431753234061
+    ],
+    "rotation": [
+     [
+      0.61361847673,
+      -0.400858864148,
+      0.680282688336
+     ],
+     [
+      0.122354116425,
+      -0.802872669635,
+      -0.583459464357
+     ],
+     [
+      0.780065276249,
+      0.441256895003,
+      -0.443610772415
+     ]
+    ]
+   },
+   "expected": {
+    "q": [
+     -1.257899732,
+     0.566530682545,
+     0.132488304013,
+     1.885784468922,
+     -1.056579310213,
+     2.708656433472
+    ],
+    "q_deg": [
+     -72.072346,
+     32.459817,
+     7.591021,
+     108.047491,
+     -60.537535,
+     155.194582
+    ],
+    "branch": {
+     "shoulder": "front",
+     "elbow": "up",
+     "wrist": "nonflip"
+    }
+   },
+   "all_solutions": [
+    {
+     "q": [
+      -1.257899732,
+      0.566530682545,
+      0.132488304013,
+      1.885784468922,
+      -1.056579310213,
+      2.708656433472
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "nonflip"
+     },
+     "rosieos": true
+    },
+    {
+     "q": [
+      -1.257899732,
+      0.566530682545,
+      0.132488304013,
+      -1.255808184667,
+      -2.085013343377,
+      -0.432936220118
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "flip"
+     },
+     "rosieos": false
+    }
+   ]
+  },
+  {
+   "id": "random_7",
+   "seed_q": [
+    2.179462264,
+    0.537541885,
+    1.008242577,
+    -0.331432326,
+    0.418865951,
+    0.149031687
+   ],
+   "move": {
+    "frame": "base",
+    "axis": "y",
+    "amount": 0.1,
+    "unit": "m",
+    "samples": 100
+   },
+   "target": {
+    "xyz": [
+     -0.152772464695,
+     0.359368784014,
+     0.120232347654
+    ],
+    "quat_wxyz": [
+     0.770558330114,
+     0.135573685361,
+     0.537701534605,
+     -0.314223957414
+    ],
+    "rotation": [
+     [
+      0.22428072854,
+      0.630052133156,
+      0.743459793339
+     ],
+     [
+      -0.338459418472,
+      0.765766160849,
+      -0.546852273421
+     ],
+     [
+      -0.913861793081,
+      -0.128982543024,
+      0.384993671042
+     ]
+    ]
+   },
+   "expected": {
+    "q": [
+     2.052989047267,
+     0.594967865277,
+     0.817491555807,
+     -0.490715797941,
+     0.536268878087,
+     0.220813145699
+    ],
+    "q_deg": [
+     117.627608,
+     34.089148,
+     46.838816,
+     -28.115944,
+     30.725943,
+     12.651661
+    ],
+    "branch": {
+     "shoulder": "front",
+     "elbow": "up",
+     "wrist": "nonflip"
+    }
+   },
+   "all_solutions": [
+    {
+     "q": [
+      2.052989047267,
+      0.594967865277,
+      0.817491555807,
+      -0.490715797941,
+      0.536268878087,
+      0.220813145699
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "nonflip"
+     },
+     "rosieos": true
+    }
+   ]
+  },
+  {
+   "id": "random_8",
+   "seed_q": [
+    -1.333810986,
+    -0.35832534,
+    1.262788075,
+    2.050582195,
+    -0.575209211,
+    -1.745898013
+   ],
+   "move": {
+    "frame": "tool",
+    "axis": "rz",
+    "amount": 0.5,
+    "unit": "rad",
+    "samples": 115
+   },
+   "target": {
+    "xyz": [
+     0.122205285365,
+     -0.261057365572,
+     0.253458633276
+    ],
+    "quat_wxyz": [
+     0.529411542165,
+     0.67377620305,
+     0.374362733495,
+     0.354403147555
+    ],
+    "rotation": [
+     [
+      0.468501905547,
+      0.129223168485,
+      0.873960718354
+     ],
+     [
+      0.879723636065,
+      -0.159151925586,
+      -0.448059135306
+     ],
+     [
+      0.081192910079,
+      0.978760459617,
+      -0.188243656052
+     ]
+    ]
+   },
+   "expected": {
+    "q": [
+     -1.333810986,
+     -0.358325340001,
+     1.262788075001,
+     2.050582195,
+     -0.575209211001,
+     -2.245898013
+    ],
+    "q_deg": [
+     -76.42174,
+     -20.53053,
+     72.352427,
+     117.489705,
+     -32.95706,
+     -128.680477
+    ],
+    "branch": {
+     "shoulder": "front",
+     "elbow": "up",
+     "wrist": "nonflip"
+    }
+   },
+   "all_solutions": [
+    {
+     "q": [
+      -1.333810986,
+      -0.35832534,
+      1.262788075,
+      2.050582195,
+      -0.575209211,
+      -2.245898013
+     ],
+     "branch": {
+      "shoulder": "front",
+      "elbow": "up",
+      "wrist": "nonflip"
+     },
+     "rosieos": true
+    },
+    {
+     "q": [
+      1.80778166759,
+      0.07379030694,
+      2.346705664138,
+      -1.209091861545,
+      -0.650409565425,
+      -2.450573102639
+     ],
+     "branch": {
+      "shoulder": "back",
+      "elbow": "down",
+      "wrist": "nonflip"
+     },
+     "rosieos": false
+    }
+   ]
+  }
+ ]
+}
